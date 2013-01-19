@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+//var assert = require('basic-assert');
+var log = require('./index');
+
+log.d("hello!"); 

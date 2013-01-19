@@ -1,0 +1,21 @@
+{
+  "name": "basic-log",
+  "version": "0.0.1",
+  "description": "A simple logging library",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anttisykari/basic-log"
+  },
+  "keywords": [
+    "log"
+  ],
+  "author": "Antti Sykäri",
+  "license": "BSD"
+}
