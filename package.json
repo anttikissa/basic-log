@@ -1,6 +1,6 @@
 {
   "name": "basic-log",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple logging library",
   "main": "index.js",
   "directories": {
@@ -17,5 +17,8 @@
     "log"
   ],
   "author": "Antti Sykäri",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+    "basic-assert": "0.0.2"
+  }
 }
