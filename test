@@ -1,6 +1,18 @@
 #!/usr/bin/env node
 
-//var assert = require('basic-assert');
+var assert = require('basic-assert');
 var log = require('./index');
 
-log.d("hello!"); 
+log.date = function() {
+	return '[date] ';
+}
+
+log.output = function(message) {
+	return message;
+}
+
+assert.is(log('hello!'), '[date] hello!');
+assert.is(log.e('hello!'), '[date] [error] hello!');
+assert.is(log.i('hello!'), '[date] [info] hello!');
+assert.is(log.d('hello!'), '[date] [debug] hello!');
+
