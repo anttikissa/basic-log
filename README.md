@@ -91,7 +91,7 @@ If want to avoid changing the global `log`, you make create a new instance:
 
 A typical use case would be to create your own log module and use it:
 
-`my-log.js`:
+`lib/my-log.js`:
 
 	var Log = require('basic-log').Log;
 
@@ -99,4 +99,10 @@ A typical use case would be to create your own log module and use it:
 		date: function() { return new Date().getTime() + ' '; }
 	});
 
+
+`my-app.js`:
+
+	var log = require('./lib/my-log');
+
+	log('Hi!');
 
