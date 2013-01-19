@@ -2,13 +2,14 @@
 
 var assert = require('basic-assert');
 var log = require('./index');
+var Log = log.Log;
 
 log('Hello!');
 
-	log.d('Hello!');
-	log.i('Hello!');
-	log.w('Hello!');
-	log.e('Hello!');
+log.d('Hello!');
+log.i('Hello!');
+log.w('Hello!');
+log.e('Hello!');
 
 log.date = function() {
 	return new Date().getTime() + ' ';
@@ -58,3 +59,11 @@ assert.is(log.e('hello!'), '[date] [error] hello!');
 assert.is(log.i('hello!'), '[date] [info] hello!');
 assert.is(log.d('hello!'), '[date] [debug] hello!');
 assert.is(log.w('hello!'), '[date] [warn] hello!');
+
+(function(log) {
+	assert.is(log('Hello!'), 'DATE HELLO!');
+})(new Log({
+	date: function() { return 'date '; },
+	output: function(message) { return message.toUpperCase(); }
+}));
+

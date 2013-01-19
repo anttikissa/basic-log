@@ -1,21 +1,34 @@
-function log(message) {
-	var self = log;
-	return self.output(self.date() + message);
+function Log(opts) {
+	function log(message) {
+		var self = log;
+		return self.output(self.date() + message);
+	}
+	if (opts) {
+		for (var key in opts) {
+			if (opts.hasOwnProperty(key)) {
+				log[key] = opts[key];
+			}
+		}
+	}
+
+	log.__proto__ = this.__proto__;
+	
+	return log;
 }
 
-log.e = function(message) {
+Log.prototype.e = function(message) {
 	return this.output(this.date() + '[error] ' + message);
 }
 
-log.i = function(message) {
+Log.prototype.i = function(message) {
 	return this.output(this.date() + '[info] ' + message);
 }
 
-log.d = function(message) {
+Log.prototype.d = function(message) {
 	return this.output(this.date() + '[debug] ' + message);
 }
 
-log.w = function(message) {
+Log.prototype.w = function(message) {
 	return this.output(this.date() + '[warn] ' + message);
 }
 
@@ -30,7 +43,11 @@ function output(message) {
 	return console.log(message);
 }
 
-log.date = date;
-log.output = output;
+var log = new Log();
+
+Log.prototype.date = date;
+Log.prototype.output = output;
+
+log.Log = Log;
 
 module.exports = log;

@@ -1,4 +1,8 @@
-# Simplest possible logging library
+# A simple logging library for Node.js
+
+## Installing
+
+	$ npm install basic-log
 
 ## Basic usage
 
@@ -77,4 +81,22 @@ Or make it return a value if you like:
 Output:
 
 	HELLO!
+
+## Creating new instances
+
+If want to avoid changing the global `log`, you make create a new instance:
+
+	var Log = require('basic-log').Log;
+	var log = new Log(<custom functions>);
+
+A typical use case would be to create your own log module and use it:
+
+`my-log.js`:
+
+	var Log = require('basic-log').Log;
+
+	module.exports = new Log({
+		date: function() { return new Date().getTime() + ' '; }
+	});
+
 
