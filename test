@@ -23,14 +23,26 @@ log.date = function() {
 log('Hello!');
 
 log.output = function(message) {
-	return message;
+	console.error(message);
 }
+log('Hello!'); // prints to stderr
+
+log.output = function(message) {
+	return message.toUpperCase();
+}
+
+console.log(log('Hello!'));
+
 
 log.date = function() {
 	return '[date] ';
 }
 
 log('Hello!');
+
+log.output = function(message) {
+	return message;
+}
 
 assert.is(log('hello!'), '[date] hello!');
 assert.is(log(1234e56), '[date] 1.234e+59');
@@ -46,4 +58,3 @@ assert.is(log.e('hello!'), '[date] [error] hello!');
 assert.is(log.i('hello!'), '[date] [info] hello!');
 assert.is(log.d('hello!'), '[date] [debug] hello!');
 assert.is(log.w('hello!'), '[date] [warn] hello!');
-

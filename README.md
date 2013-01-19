@@ -60,7 +60,21 @@ By default, messages are written using `console.log`.
 
 Change it by setting `output`:
 
-log.output = function(message) {
-	console.log(message);
-}
+	log.output = function(message) {
+		console.err(message);
+	}
+
+	log('Hello!'); // prints to stderr
+
+Or make it return a value if you like:
+
+	log.output = function(message) {
+		return message.toUpperCase();
+	}
+
+	console.log(log('Hello!'));
+
+Output:
+
+	HELLO!
 
