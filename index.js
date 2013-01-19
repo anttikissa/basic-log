@@ -15,6 +15,10 @@ log.d = function(message) {
 	return this.output(this.date() + '[debug] ' + message);
 }
 
+log.w = function(message) {
+	return this.output(this.date() + '[warn] ' + message);
+}
+
 // Return date plus a space.
 // Will be printed before each log line.
 function date() {

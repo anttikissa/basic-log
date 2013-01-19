@@ -3,16 +3,47 @@
 var assert = require('basic-assert');
 var log = require('./index');
 
+log('Hello!');
+
+	log.d('Hello!');
+	log.i('Hello!');
+	log.w('Hello!');
+	log.e('Hello!');
+
 log.date = function() {
-	return '[date] ';
+	return new Date().getTime() + ' ';
 }
+
+log('Hello!');
+
+log.date = function() {
+	return '';
+}
+
+log('Hello!');
 
 log.output = function(message) {
 	return message;
 }
 
+log.date = function() {
+	return '[date] ';
+}
+
+log('Hello!');
+
 assert.is(log('hello!'), '[date] hello!');
+assert.is(log(1234e56), '[date] 1.234e+59');
+// TODO do something about this
+assert.is(log({ x: 1 }), '[date] [object Object]');
+// TODO and this
+assert.is(log([1, 2, 3]), '[date] 1,2,3');
+assert.is(log(function x() { return 'foo'; }), "[date] function x() { return 'foo'; }");
+// TODO depends on the time zone
+//assert.is(log(new Date(1234567890000)), '[date] Sat Feb 14 2009 01:31:30 GMT+0200 (EET)');
+
 assert.is(log.e('hello!'), '[date] [error] hello!');
 assert.is(log.i('hello!'), '[date] [info] hello!');
 assert.is(log.d('hello!'), '[date] [debug] hello!');
+assert.is(log.w('hello!'), '[date] [warn] hello!');
 
