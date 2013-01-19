@@ -67,3 +67,8 @@ assert.is(log.w('hello!'), '[date] [warn] hello!');
 	output: function(message) { return message.toUpperCase(); }
 }));
 
+(function(log) {
+	log('New instance');
+//	assert.is(log('Hello!'), 'date Hello!');
+})(new Log);
+
