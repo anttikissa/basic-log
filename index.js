@@ -16,6 +16,8 @@ function Log(opts) {
 	return log;
 }
 
+Log.prototype = Object.create(Function.prototype);
+
 Log.prototype.e = function(message) {
 	return this.output(this.date() + '[error] ' + message);
 }
