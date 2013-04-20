@@ -4,9 +4,11 @@ var assert = require('basic-assert');
 var log = require('./index');
 var Log = log.Log;
 
+log({ foo: 'bar' }, 'zot');
+
 log('Hello!');
 
-log.d('Hello!');
+log.d('Hello', 'world', { x: 1, y: [ 'a', new Date(1234567890123) ]});
 log.i('Hello!');
 log.w('Hello!');
 log.e('Hello!');
@@ -26,14 +28,13 @@ log('Hello!');
 log.output = function(message) {
 	console.error(message);
 }
-log('Hello!'); // prints to stderr
+log('Hello stderr!'); // prints to stderr
 
 log.output = function(message) {
 	return message.toUpperCase();
 }
 
 console.log(log('Hello!'));
-
 
 log.date = function() {
 	return '[date] ';
@@ -47,10 +48,8 @@ log.output = function(message) {
 
 assert.is(log('hello!'), '[date] hello!');
 assert.is(log(1234e56), '[date] 1.234e+59');
-// TODO do something about this
-assert.is(log({ x: 1 }), '[date] [object Object]');
-// TODO and this
-assert.is(log([1, 2, 3]), '[date] 1,2,3');
+assert.is(log({ x: 1 }), '[date] { x: 1 }');
+assert.is(log([1, 2, 3]), '[date] [ 1, 2, 3 ]');
 assert.is(log(function x() { return 'foo'; }), "[date] function x() { return 'foo'; }");
 // TODO depends on the time zone
 //assert.is(log(new Date(1234567890000)), '[date] Sat Feb 14 2009 01:31:30 GMT+0200 (EET)');
@@ -71,4 +70,7 @@ assert.is(log.w('hello!'), '[date] [warn] hello!');
 	log('New instance');
 //	assert.is(log('Hello!'), 'date Hello!');
 })(new Log);
+
+
+
 
