@@ -14,26 +14,64 @@ function Log(opts) {
 	}
 
 	log.__proto__ = this.__proto__;
-	
+
+	log.setLevel('all', true);
+
 	return log;
+}
+
+levels = {
+	none: 0,
+	error: 1,
+	warn: 2,
+	info: 3,
+	debug: 4,
+	all: 4
 }
 
 Log.prototype = Object.create(Function.prototype);
 
 Log.prototype.e = function() {
-	return this.output(this.date() + '[error] ' + this.fmt.apply(this, arguments));
-}
-
-Log.prototype.i = function() {
-	return this.output(this.date() + '[info] ' + this.fmt.apply(this, arguments));
-}
-
-Log.prototype.d = function() {
-	return this.output(this.date() + '[debug] ' + this.fmt.apply(this, arguments));
+	if (this.level >= levels.error)
+		return this.output(this.date() + '[error] ' + this.fmt.apply(this, arguments));
 }
 
 Log.prototype.w = function() {
-	return this.output(this.date() + '[warn] ' + this.fmt.apply(this, arguments));
+	if (this.level >= levels.warn)
+		return this.output(this.date() + '[warn] ' + this.fmt.apply(this, arguments));
+}
+
+Log.prototype.i = function() {
+	if (this.level >= levels.info)
+		return this.output(this.date() + '[info] ' + this.fmt.apply(this, arguments));
+}
+
+Log.prototype.d = function() {
+	if (this.level >= levels.debug)
+		return this.output(this.date() + '[debug] ' + this.fmt.apply(this, arguments));
+}
+
+// Set log level to any of 'none', 'error', 'warn', 'info', 'debug', each
+// successive level always including the output of all of the levels preceding
+// it.
+//
+// log(message) always prints its output. You must use the log.{e,w,i,d}
+// variants if you need to silence one or more log levels.
+//
+// Default level is 'debug', which prints all messages. 'all' is an alias for
+// 'debug'.
+Log.prototype.setLevel = function(levelName, silent) {
+	for (level in levels) {
+		if (level === levelName) {
+			this.level = levels[level];
+			if (!silent) {
+				this("Log level set to '" + level + "'");
+			}
+			return;
+		}
+	}
+
+	this.e("Unknown log level '" + levelName + "'");
 }
 
 // Return date plus a space.

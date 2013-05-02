@@ -30,6 +30,14 @@ Output:
 	2013-01-19 09:03:17.671 [warn] Hello!
 	2013-01-19 09:03:17.671 [error] Hello!
 
+## Suppressing one or more levels
+
+	log.setLevel('info');
+	log.d('Will not be logged');
+	log.i('Will be logged');
+
+`log.setLevel` accepts the following levels: `'none'`, `'debug'`, `'warn'`, `'info'`, `'debug'`.  Each level includes the levels preceding it.  `'all'` is an alias for `'debug'`.
+
 ## Changing the date format
 
 By default, the date format is `YYYY-MM-DD hh:mm:ss:mmm` in UTC time.

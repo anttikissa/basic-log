@@ -25,6 +25,23 @@ log.date = function() {
 
 log('Hello!');
 
+log.i('You should see this message.');
+log.setLevel('info');
+log.i('You should see this message.');
+log.d('!!! You SHOULD NOT see this message.');
+log.setLevel('debug');
+log.e('You should see this message.');
+log.w('You should see this message.');
+log.i('You should see this message.');
+log.d('You should see this message.');
+log.setLevel('error');
+log.e('You should see this message.');
+log.w('!!! You SHOULD NOT see this message.');
+log.i('!!! You SHOULD NOT see this message.');
+log.d('!!! You SHOULD NOT see this message.');
+
+log.setLevel('debug');
+
 log.output = function(message) {
 	console.error(message);
 }
@@ -70,7 +87,4 @@ assert.is(log.w('hello!'), '[date] [warn] hello!');
 	log('New instance');
 //	assert.is(log('Hello!'), 'date Hello!');
 })(new Log);
-
-
-
 
