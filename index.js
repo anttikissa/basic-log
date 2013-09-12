@@ -87,7 +87,7 @@ function output(message) {
 
 // Convert arguments to a string, like console.log does.
 function fmt() {
-	result = [];
+	var result = [];
 	for (var i = 0; i < arguments.length; i++) {
 		var type = typeof arguments[i];
 		if (type == 'string') {
