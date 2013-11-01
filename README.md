@@ -1,10 +1,12 @@
 # A simple logging library for Node.js
 
+The logging library that requires the least amount of keystrokes.
+
 ## Installing
 
 	$ npm install basic-log
 
-## Basic usage
+## Simple usage
 
 	var log = require('basic-log');
 
@@ -37,6 +39,10 @@ Output:
 	log.i('Will be logged');
 
 `log.setLevel` accepts the following levels: `'none'`, `'debug'`, `'warn'`, `'info'`, `'debug'`.  Each level includes the levels preceding it.  `'all'` is an alias for `'debug'`.
+
+## TODO Complex usage
+
+...
 
 ## Changing the date format
 
@@ -113,4 +119,51 @@ A typical use case would be to create your own log module and use it:
 	var log = require('./lib/my-log');
 
 	log('Hi!');
+
+## TODO
+
+### Module-specific loggers
+
+Simply:
+
+module1:
+
+	var log = require('basic-log').as('module1');
+	log.i("hello");
+
+lib/module2:
+
+	var log = require('basic-log').as('lib/module2');
+	log.i("world");
+
+And you get
+
+	2013-11-01 18:47:18.430 [info] module1: hello
+	2013-11-01 18:47:18.442 [info] lib/module2: world
+
+Maybe auto-configure it so that
+
+	// in 'mymodule.js'
+    var log = require('basic-log')();
+
+is the same as
+
+	var log = require('basic-log').as('mymodule');
+
+(if possible).
+
+### Enable and disable log levels per-level 
+
+Perhaps so that .setLevel('info') will .enable('info'), .enable('warn'),
+.enable('error')
+
+### Enable and disable log levels per-module
+
+### Add level 'trace'
+  
+### ...
+
+### Change the name
+
+`basic-log` is too much to type
 
