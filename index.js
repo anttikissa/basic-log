@@ -1,4 +1,4 @@
-util = require('util');
+var util = require('util');
 
 function Log(opts) {
 	function log() {
@@ -20,36 +20,44 @@ function Log(opts) {
 	return log;
 }
 
-levels = {
+var levels = {
 	none: 0,
 	error: 1,
 	warn: 2,
 	info: 3,
 	debug: 4,
 	all: 4
-}
+};
 
 Log.prototype = Object.create(Function.prototype);
 
 Log.prototype.e = function() {
-	if (this.level >= levels.error)
-		return this.output(this.date() + '[error] ' + this.fmt.apply(this, arguments));
-}
+	if (this.level >= levels.error) {
+		return this.output(this.date() + '[error] ' +
+			this.fmt.apply(this, arguments));
+	}
+};
 
 Log.prototype.w = function() {
-	if (this.level >= levels.warn)
-		return this.output(this.date() + '[warn] ' + this.fmt.apply(this, arguments));
-}
+	if (this.level >= levels.warn) {
+		return this.output(this.date() + '[warn] ' +
+			this.fmt.apply(this, arguments));
+	}
+};
 
 Log.prototype.i = function() {
-	if (this.level >= levels.info)
-		return this.output(this.date() + '[info] ' + this.fmt.apply(this, arguments));
-}
+	if (this.level >= levels.info) {
+		return this.output(this.date() + '[info] ' +
+			this.fmt.apply(this, arguments));
+	}
+};
 
 Log.prototype.d = function() {
-	if (this.level >= levels.debug)
-		return this.output(this.date() + '[debug] ' + this.fmt.apply(this, arguments));
-}
+	if (this.level >= levels.debug) {
+		return this.output(this.date() + '[debug] ' +
+			this.fmt.apply(this, arguments));
+	}
+};
 
 // Set log level to any of 'none', 'error', 'warn', 'info', 'debug', each
 // successive level always including the output of all of the levels preceding
@@ -61,7 +69,7 @@ Log.prototype.d = function() {
 // Default level is 'debug', which prints all messages. 'all' is an alias for
 // 'debug'.
 Log.prototype.setLevel = function(levelName, silent) {
-	for (level in levels) {
+	for (var level in levels) {
 		if (level === levelName) {
 			this.level = levels[level];
 			if (!silent) {
@@ -72,41 +80,35 @@ Log.prototype.setLevel = function(levelName, silent) {
 	}
 
 	this.e("Unknown log level '" + levelName + "'");
-}
+};
 
 // Return date plus a space.
 // Will be printed before each log line.
-function date() {
+Log.prototype.date = function date() {
 	return new Date().toISOString().replace(/[TZ]/g, ' ');
-}
+};
 
 // Output the message.
-function output(message) {
+Log.prototype.output = function output(message) {
 	return console.log(message);
-}
+};
 
 // Convert arguments to a string, like console.log does.
-function fmt() {
+Log.prototype.fmt = function fmt() {
 	var result = [];
 	for (var i = 0; i < arguments.length; i++) {
 		var type = typeof arguments[i];
-		if (type == 'string') {
+		if (type === 'string') {
 			result.push(arguments[i]);
-		} else if (type == 'function') {
+		} else if (type === 'function') {
 			result.push(arguments[i].toString());
 		} else {
 			result.push(util.inspect(arguments[i]));
 		}
 	}
 	return result.join(' ');
-}
+};
 
-Log.prototype.date = date;
-Log.prototype.output = output;
-Log.prototype.fmt = fmt;
-
-var log = new Log();
-log.Log = Log;
-
-module.exports = log;
+module.exports = new Log();
+module.exports.Log = Log;
 
