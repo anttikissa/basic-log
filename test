@@ -88,3 +88,10 @@ assert.is(log.w('hello!'), '[date] [warn] hello!');
 //	assert.is(log('Hello!'), 'date Hello!');
 })(new Log);
 
+log = new Log();
+log('fo');
+var mlog = log.as('module');
+mlog('Hello again');
+mlog.i('Hello again');
+mlog.d('Hello again');
+
